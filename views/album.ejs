@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <style>
-      /* Existing styles */
+      /* Dark mode styles */
       body {
         background-color: #212529;
-        color: #ffffff;
+        color: #f8f9fa;
       }
 
       .releaseYear {
@@ -22,6 +22,7 @@
       .card {
         border-radius: 15px;
         border: none;
+        background-color: #343a40;
       }
       .img-container {
         display: flex;
@@ -41,16 +42,16 @@
         border-radius: 15px;
         text-align: center;
         font-size: 20px;
-        background-color: #212529;
-        color: #ffffff;;
+        background-color: #f8f9fa;
+        color: #212529;
       }
       .card-subtitle {
-        border: 2px solid #ffffff;;
+        border: 2px solid #f8f9fa;
         padding: 10px;
         margin: 15px;
         border-radius: 15px;
         text-align: center;
-        background-color: #ffffff;;
+        background-color: #f8f9fa;
         color: #212529;
       }
       .card-text {
@@ -58,14 +59,15 @@
       }
       .favorite-button {
         width: 100%;
-        background-color: #343a40;
-        color: #f8f9fa;
+        background-color: #e6ac82;
+        color: #212529;
         border-color: #f9bd93;
         transition: all 0.3s ease;
       }
-      .favorite-button:hover, .favorite-button:active {
-        background-color: #e6ac82;;
-        color: #212529;
+      .favorite-button:hover,
+      .favorite-button:active {
+        background-color: #d49569;
+        color: #f8f9fa;
       }
       .track-list {
         background-color: #343a40;
@@ -74,7 +76,21 @@
         margin-top: 1em;
         padding: 1em;
       }
+
+      /* Modals */
+      .modal-content {
+        background-color: #343a40;
+        color: #f8f9fa;
+      }
+      .modal-header {
+        background-color: #212529;
+        color: #f8f9fa;
+      }
+      .modal-footer {
+        background-color: #343a40;
+      }
     </style>
+
   </head>
   <body>
     <%- include('partials/loginHeader.ejs') %>

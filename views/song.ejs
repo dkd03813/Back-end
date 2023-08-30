@@ -3,18 +3,25 @@
   <head>
     <title><%= title %></title>
     <!-- Include the Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
 
     <!-- Include the Font Awesome CSS for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
     <style>
       /* Dark Theme Styles */
       body {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         background-color: #212529;
         color: #f8f9fa;
       }
+
       /* Dark Navbar */
       .navbar {
         background-color: #212529;
@@ -23,12 +30,14 @@
       .navbar .nav-link {
         color: #f8f9fa;
       }
+
       /* Dark Cards */
       .card {
         background-color: #464646;
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
         color: #f8f9fa;
       }
+
       /* Song Titles with warmer color */
       h5 {
         color: #fdab68; /* Bootstrap's Orange */
@@ -37,6 +46,7 @@
         border-radius: 5px;
         text-align: center;
       }
+
       /* Genre with cooler color */
       p {
         color: #bda4ea; /* Bootstrap's Cyan */
@@ -44,6 +54,7 @@
         border-radius: 5px;
         text-align: center;
       }
+
       /* Rectangular Album Covers with rounded corners */
       .img-container {
         width: 100px;
@@ -59,20 +70,46 @@
         object-fit: cover; /* Cover the entire div */
       }
 
+      /* Favorite Button Styles */
+      .favorite-button {
+        background-color: #343a40;
+        color: #f8f9fa;
+        border-color: #f9bd93;
+        transition: all 0.3s ease;
+      }
+
+      .favorite-button:hover,
+      .favorite-button:active {
+        background-color: #e6ac82;
+        color: #212529;
+      }
+
+      /* Pagination styles */
       .pagination a {
-      color: #fdab68; /* Bootstrap's Orange */
-      transition: color 0.2s;
-    }
+        color: #fdab68; /* Bootstrap's Orange */
+        transition: color 0.2s;
+      }
 
-    .pagination a:hover {
-      color: #f8f9fa;
-    }
+      .pagination a:hover {
+        color: #f8f9fa;
+      }
 
-    .pagination a.active {
-      color: #f8f9fa;
-      font-weight: bold;
-    }
+      .pagination a.active {
+        color: #f8f9fa;
+        font-weight: bold;
+      }
 
+      /* Success Modal */
+      .modal-content.success-modal {
+        background-color: #343a40; /* Dark gray background */
+        color: #f8f9fa; /* Light text color */
+      }
+
+      /* Error Modal */
+      .modal-content.error-modal {
+        background-color: #e74c3c; /* Red background */
+        color: #f8f9fa; /* Light text color */
+      }
     </style>
   </head>
   <body>
@@ -81,7 +118,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">Sound Vault</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -97,132 +142,185 @@
       </div>
     </nav>
 
-<!--  Search Form - Updated Design -->
-<div class="m-5 p-4">
-  <form action="/song/search" method="post">
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" name="textbox" placeholder="Search for a song" aria-label="Search for a song" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" value="submit" type="submit">Search</button>
+    <!--  Search Form - Updated Design -->
+    <div class="m-5 p-4">
+      <form action="/song/search" method="post">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="textbox"
+            placeholder="Search for a song"
+            aria-label="Search for a song"
+            aria-describedby="basic-addon2"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              value="submit"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-  </div>
-  </form>
-  </div>
-  
 
-<!-- Search Form Error Message (the song name was logging as an empty array in the console log)-->
-<% if (songs.length === 0) { %>
-  <div class="text-center error mb-4">No song matches.</div>
- <% } %>
-
-
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="successModalLabel">Success</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Song successfully added to favorites!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel">Error</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Song already in favorites.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- This code is here to handle the creation of many pages to help the page load easier -->
-<nav aria-label="Page navigation">
-  <ul class="pagination justify-content-center">
-    <% if (page > 1) { %>
-      <li class="page-item">
-        <a class="page-link" href="?page=1" aria-label="First">
-          <span aria-hidden="true">&laquo;&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="?page=<%= page - 1 %>" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
+    <!-- Search Form Error Message (the song name was logging as an empty array in the console log)-->
+    <% if (songs.length === 0) { %>
+    <div class="text-center error mb-4">No song matches.</div>
     <% } %>
 
-    <% totalPages = Math.ceil(count / limit); %>
-    <% for(let i = 1; i <= totalPages; i++) { %>
-      <% if(i == 1 || i == totalPages || (i >= page - 2 && i <= page + 2)) { %>
+    <!-- Success Modal -->
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content success-modal">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Album successfully added to favorites!</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div
+      class="modal fade"
+      id="errorModal"
+      tabindex="-1"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content error-modal">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Album already in favorites.</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- This code is here to handle the creation of many pages to help the page load easier -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <% if (page > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=1" aria-label="First">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="?page=<%= page - 1 %>"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <% } %> <% totalPages = Math.ceil(count / limit); %> <% for(let i = 1; i
+        <= totalPages; i++) { %> <% if(i == 1 || i == totalPages || (i >= page -
+        2 && i <= page + 2)) { %>
         <li class="page-item <% if (page == i) { %>active<% } %>">
           <a class="page-link" href="?page=<%= i %>"><%= i %></a>
         </li>
-      <% } else if(i == 2 || i == totalPages - 1) { %>
+        <% } else if(i == 2 || i == totalPages - 1) { %>
         <li class="page-item disabled">
           <span class="page-link">...</span>
         </li>
-      <% } %>
-    <% } %>
-
-    <% if (page * limit < count) { %>
-      <li class="page-item">
-        <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="?page=<%= totalPages %>" aria-label="Last">
-          <span aria-hidden="true">&raquo;&raquo;</span>
-        </a>
-      </li>
-    <% } %>
-  </ul>
-</nav>
+        <% } %> <% } %> <% if (page * limit < count) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= totalPages %>" aria-label="Last">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
 
     <!-- Song Cards -->
     <div class="container mt-5">
       <h1 class="text-center mb-4"><%= title %></h1>
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <% songs.forEach((song, index) => { %>
-          <div class="col">
-            <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h5 class="card-title mb-3"><%= song.dataValues.songName %></h5>
-                <p class="card-text">Genre: <%= song.Album.genre %></p>
-                <div class="img-container">
-                  <img src="<%= song.Album.albumCover || 'https://placekitten.com/200/200' %>" class="card-img-top" alt="Album Cover">
-                </div>
-                <form class="favoriteForm mt-3">
-                  <input name="songID"  type= "hidden" value="<%= song.dataValues.id %>">
-                  <input type="hidden" name="profileID" value="<%= userProfileID %>"> <!-- Replace with the actual user's profile ID -->
-                  <button type="button" class="btn favorite-button">
-                    <i class="fas fa-heart"></i> Favorite
-                  </button>
-                </form>
+        <div class="col">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3"><%= song.dataValues.songName %></h5>
+              <p class="card-text">Genre: <%= song.Album.genre %></p>
+              <div class="img-container">
+                <img
+                  src="<%= song.Album.albumCover || 'https://placekitten.com/200/200' %>"
+                  class="card-img-top"
+                  alt="Album Cover"
+                />
               </div>
+              <form class="favoriteForm mt-3">
+                <input
+                  name="songID"
+                  type="hidden"
+                  value="<%= song.dataValues.id %>"
+                />
+                <input
+                  type="hidden"
+                  name="profileID"
+                  value="<%= userProfileID %>"
+                />
+                <!-- Replace with the actual user's profile ID -->
+                <button type="button" class="btn favorite-button">
+                  <i class="fas fa-heart"></i> Favorite
+                </button>
+              </form>
             </div>
           </div>
+        </div>
         <% }); %>
       </div>
     </div>
@@ -230,42 +328,41 @@
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
         <% if (page > 1) { %>
-          <li class="page-item">
-            <a class="page-link" href="?page=1" aria-label="First">
-              <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page=<%= page - 1 %>" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        <% } %>
-    
-        <% totalPages = Math.ceil(count / limit); %>
-        <% for(let i = 1; i <= totalPages; i++) { %>
-          <% if(i == 1 || i == totalPages || (i >= page - 2 && i <= page + 2)) { %>
-            <li class="page-item <% if (page == i) { %>active<% } %>">
-              <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-            </li>
-          <% } else if(i == 2 || i == totalPages - 1) { %>
-            <li class="page-item disabled">
-              <span class="page-link">...</span>
-            </li>
-          <% } %>
-        <% } %>
-    
-        <% if (page * limit < count) { %>
-          <li class="page-item">
-            <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page=<%= totalPages %>" aria-label="Last">
-              <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-          </li>
+        <li class="page-item">
+          <a class="page-link" href="?page=1" aria-label="First">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="?page=<%= page - 1 %>"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <% } %> <% totalPages = Math.ceil(count / limit); %> <% for(let i = 1; i
+        <= totalPages; i++) { %> <% if(i == 1 || i == totalPages || (i >= page -
+        2 && i <= page + 2)) { %>
+        <li class="page-item <% if (page == i) { %>active<% } %>">
+          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+        </li>
+        <% } else if(i == 2 || i == totalPages - 1) { %>
+        <li class="page-item disabled">
+          <span class="page-link">...</span>
+        </li>
+        <% } %> <% } %> <% if (page * limit < count) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= totalPages %>" aria-label="Last">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+          </a>
+        </li>
         <% } %>
       </ul>
     </nav>
@@ -273,45 +370,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
-    
+
     <script>
-      document.querySelectorAll('.favorite-button').forEach(item => {
-        item.addEventListener('click', handleFavorite);
+      document.querySelectorAll(".favorite-button").forEach((item) => {
+        item.addEventListener("click", handleFavorite);
       });
-    
+
       function handleFavorite(event) {
         event.preventDefault();
-    
+
         const form = event.target.parentElement;
         const formData = new FormData(form);
         const songID = formData.get("songID");
         const profileID = formData.get("profileID");
-        
-        fetch('/song', {
-          method: 'POST',
+
+        fetch("/song", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ songID, profileID }),
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            $('#errorModal').modal('show');
-          } else {
-            $('#successModal').modal('show');
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              $("#errorModal").modal("show");
+            } else {
+              $("#successModal").modal("show");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     </script>
   </body>
 </html>
-
-
-
-
-
-

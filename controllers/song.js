@@ -31,21 +31,35 @@ const songGet = async (req, res) => {
   });
 };
 
-  const songSearchPost = async (req, res) => { 
-    const { textbox } = req.body;
-    const userProfileID = req.user.id;
+const songSearchPost = async (req, res) => {
+  const { textbox } = req.body;
+  const userProfileID = req.user.id;
+  const limit = 21;
+  const page = req.query.page ? Number(req.query.page) : 1;
+  const offset = (page - 1) * limit;
 
-    const songs = await Song.findAll({
-        where: { 
-            songName: {
-                [Op.iLike]: '%' + textbox + '%'
-            }
-        },
-        attributes: { exclude: [ 'songID']},
-        include: [ { model: Album } ] // Add this line
-    });
+  const { count, rows: songs } = await Song.findAndCountAll({
+    where: {
+      songName: { [Op.iLike]: '%' + textbox + '%' }
+    },
+    attributes: { exclude: ['ArtistId', 'songID'] },
+    include: {
+      model: Album,
+      attributes: ['albumCover', 'genre']
+    },
+    offset,
+    limit
+  });
 
-    res.render('song', { title: "Songs", songs, userProfileID });
+  res.render('song', {
+    title: "Songs",
+    songs,
+    limit,
+    count,
+    page,
+    userProfileID,
+    // Add other necessary data here
+  });
 }
 
 /* The songPost renders all songs that contain the search bar results. */
